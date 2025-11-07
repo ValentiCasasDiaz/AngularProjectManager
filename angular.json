@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "AngularProjectManager": {
+    "angular-project-manager": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "AngularProjectManager:build:production"
+              "buildTarget": "angular-project-manager:build:production"
             },
             "development": {
-              "buildTarget": "AngularProjectManager:build:development"
+              "buildTarget": "angular-project-manager:build:development"
             }
           },
           "defaultConfiguration": "development"
