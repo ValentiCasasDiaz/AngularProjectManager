@@ -1,0 +1,38 @@
+<div class="auth-container">
+  <mat-card>
+    <mat-card-title>Registre</mat-card-title>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Contrasenya</mat-label>
+        <input matInput formControlName="password" type="password" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Repeteix la contrasenya</mat-label>
+        <input matInput formControlName="repeatPassword" type="password" />
+      </mat-form-field>
+
+      <button mat-raised-button color="accent" class="full-width" type="submit"
+        [disabled]="loading || registerForm.invalid">
+
+        @if (!loading) {
+          Crear compte
+        } @else {
+          <mat-progress-spinner mode="indeterminate" diameter="24"></mat-progress-spinner>
+        }
+      </button>
+
+
+      <button mat-button color="accent" class="full-width" routerLink="/login" style="margin-top: 16px;">
+        Tornar
+      </button>
+    </form>
+  </mat-card>
+</div>
