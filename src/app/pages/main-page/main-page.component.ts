@@ -47,9 +47,7 @@ export class MainPageComponent {
   logout() {
     this.auth.logout()
     .then(() => this.router.navigate(['/login']))
-    .catch(() => {
-      // L’error ja està informat pel snackbar
-    });
+    .catch(err => console.error('Error logout:', err));
   }
 
 }
