@@ -4,28 +4,45 @@
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
-      <mat-form-field appearance="outline" class="full-width">
+      <mat-form-field class="full-width">
         <mat-label>Email</mat-label>
-        <input matInput formControlName="email" type="email" />
+        <input matInput formControlName="email" placeholder="pau@mostra.com" type="email"
+          (blur)="updateEmailErrorMsg()" required />
+
+        @if (registerForm.controls.email.invalid) {
+          <mat-error>{{emailErrorMsg()}}</mat-error>
+        }
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="full-width">
+      <mat-form-field class="full-width">
         <mat-label>Contrasenya</mat-label>
-        <input matInput formControlName="password" type="password" />
+        <input matInput formControlName="password" [type]="hidePwd() ? 'password' : 'text'" />
+        <button matIconButton matSuffix (click)="changePwdVisibility($event)" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hidePwd()">
+          <mat-icon>{{hidePwd() ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+
+        @if (registerForm.controls.password.invalid && registerForm.controls.password.touched) {
+          <mat-error>La contrasenya és obligatòria</mat-error>
+        }
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="full-width">
+      <mat-form-field class="full-width">
         <mat-label>Repeteix la contrasenya</mat-label>
-        <input matInput formControlName="repeatPassword" type="password" />
+        <input matInput formControlName="repeatPassword" [type]="hideRepeatPwd() ? 'password' : 'text'" />
+        <button matIconButton matSuffix (click)="changeRepPwdVisibility($event)"
+          [attr.aria-label]="'Hide repeat password'" [attr.aria-pressed]="hideRepeatPwd()">
+          <mat-icon>{{hideRepeatPwd() ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
       </mat-form-field>
 
       <button mat-raised-button color="accent" class="full-width" type="submit"
         [disabled]="loading || registerForm.invalid">
 
-        @if (!loading) {
-          Crear compte
+        @if (!loading()) {
+        Crear compte
         } @else {
-          <mat-progress-spinner mode="indeterminate" diameter="24"></mat-progress-spinner>
+        <mat-progress-spinner mode="indeterminate" diameter="24"></mat-progress-spinner>
         }
       </button>
 

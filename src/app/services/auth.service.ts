@@ -70,7 +70,7 @@ export class AuthService {
       case 'auth/wrong-password':
         return 'Contrasenya incorrecta.';
       case 'auth/weak-password':
-        return 'La contrasenya és massa feble.';
+        return 'La contrasenya hauria de tenir almenys 6 caràcters';
       default:
         return 'S\'ha produït un error inesperat.';
     }
