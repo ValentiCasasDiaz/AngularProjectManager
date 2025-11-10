@@ -1,0 +1,32 @@
+.layout-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 250px;
+}
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.toolbar-title {
+  margin-left: 10px;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.active-link {
+  background: rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #fff;
+}
+
+.page-content {
+  padding: 16px;
+}

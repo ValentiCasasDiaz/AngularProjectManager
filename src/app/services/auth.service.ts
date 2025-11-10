@@ -29,7 +29,7 @@ export class AuthService {
       return cred.user;
 
     } catch (err: any) {
-      this.showError(err);
+      this.showMessage(err);
       throw err;
     }
   }
@@ -40,16 +40,23 @@ export class AuthService {
       return cred.user;
 
     } catch (err: any) {
-      this.showError(err);
+      this.showMessage(err);
       throw err;
     }
   }
 
-  logout(): Promise<void> {
-    return signOut(this.auth);
+  async logout(): Promise<void> {
+    try {
+      await signOut(this.auth);
+      this.showMessage('Sessió tancada correctament');
+    } 
+    catch (err: any) {
+      this.showMessage(err);
+      throw err;
+    }
   }
 
-  private showError(error: any) {
+  private showMessage(error: any) {
     const message = this.firebaseErrorMessage(error.code);
     this.snack.open(message, 'Tancar', {
       duration: 4000,
