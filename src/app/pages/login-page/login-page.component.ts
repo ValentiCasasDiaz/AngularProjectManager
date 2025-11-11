@@ -78,7 +78,7 @@ export class LoginPageComponent {
       const { email, password } = this.loginForm.value;
 
       this.auth.login(email!, password!)
-      .then(() => this.router.navigate(['/home']))
+      .then(() => this.router.navigate(['/main']))
       .catch(err => console.error('Error login:', err))
       .finally(() => this.loading = false);
     }
