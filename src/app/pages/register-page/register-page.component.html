@@ -17,10 +17,8 @@
       <mat-form-field class="full-width">
         <mat-label>Contrasenya</mat-label>
         <input matInput formControlName="password" [type]="hidePwd() ? 'password' : 'text'" />
-        <button matIconButton matSuffix (click)="changePwdVisibility($event)" [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hidePwd()">
-          <mat-icon>{{hidePwd() ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
+
+        <mat-icon matSuffix (click)="changePwdVisibility($event)">{{hidePwd() ? 'visibility_off' : 'visibility'}}</mat-icon>
 
         @if (registerForm.controls.password.invalid && registerForm.controls.password.touched) {
           <mat-error>La contrasenya és obligatòria</mat-error>
@@ -30,10 +28,8 @@
       <mat-form-field class="full-width">
         <mat-label>Repeteix la contrasenya</mat-label>
         <input matInput formControlName="repeatPassword" [type]="hideRepeatPwd() ? 'password' : 'text'" />
-        <button matIconButton matSuffix (click)="changeRepPwdVisibility($event)"
-          [attr.aria-label]="'Hide repeat password'" [attr.aria-pressed]="hideRepeatPwd()">
-          <mat-icon>{{hideRepeatPwd() ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
+
+        <mat-icon matSuffix (click)="changeRepPwdVisibility($event)">{{hideRepeatPwd() ? 'visibility_off' : 'visibility'}}</mat-icon>
       </mat-form-field>
 
       <button mat-raised-button color="accent" class="full-width" type="submit"

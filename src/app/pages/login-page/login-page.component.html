@@ -16,13 +16,10 @@
 
       <mat-form-field class="full-width">
         <mat-label>Contrasenya</mat-label>
-        <input matInput formControlName="password" [type]="hidePwd() ? 'password' : 'text'" />
-        
-        <button matIconButton matSuffix (click)="changePwdVisibility($event)" [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hidePwd()">
-          <mat-icon>{{hidePwd() ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-        
+        <input matInput formControlName="password" [type]="hidePwd() ? 'password' : 'text'" required />
+
+        <mat-icon matSuffix (click)="changePwdVisibility($event)">{{hidePwd() ? 'visibility_off' : 'visibility'}}</mat-icon>
+
         @if (loginForm.controls.password.invalid && loginForm.controls.password.touched) {
           <mat-error>La contrasenya és obligatòria</mat-error>
         }
@@ -43,5 +40,6 @@
         Crear un compte
       </button>
     </form>
+
   </mat-card>
 </div>
