@@ -44,7 +44,6 @@ export class DashboardComponent {
 
     menuItems = [
         { icon: 'home', label: 'Inici', route: '/dashboard/home' },
-        { icon: 'person', label: 'Perfil', route: '/dashboard/profile' },
         { icon: 'settings', label: 'Configuració', route: '/dashboard/settings' }
     ];
 
@@ -74,5 +73,9 @@ export class DashboardComponent {
         this.auth.logout()
             .then(() => this.router.navigate(['/login']))
             .catch(err => console.error('Logout error', err));
+    }
+
+    goProfile() {
+        this.router.navigate(['/dashboard/profile']);
     }
 }

@@ -5,12 +5,12 @@
 
         <div class="sidenav-header">
             @if (user$ | async) {
-            <img [src]="(user$ | async)?.photoURL || 'assets/avatar-placeholder.png'" alt="avatar" class="avatar" />
+            <img (click)="goProfile()" [src]="(user$ | async)?.photoURL || 'assets/avatar-placeholder.png'" alt="avatar" class="avatar" />
             <div class="user-info">
                 <div class="name">{{ (user$ | async)?.displayName || (user$ | async)?.email }}</div>
             </div>
             } @else {
-            <img src="assets/avatar-placeholder.png" alt="avatar" class="avatar" />
+            <img (click)="goProfile()" src="assets/avatar-placeholder.png" alt="avatar" class="avatar" />
             <div class="user-info">
                 <div class="name">Usuari</div>
             </div>

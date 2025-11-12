@@ -30,7 +30,8 @@ export const routes: Routes = [
         data: { authGuardPipe: redirectUnauthorized },
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', title: 'Home', component: MainPageComponent }
+            { path: 'home', title: 'Home', component: MainPageComponent },
+            { path: 'profile', title: 'Perfil', loadComponent: () => import('./pages/profile-page/profile-page.component').then(m => m.ProfilePageComponent) }
         ]
     },
     { path: '**', redirectTo: 'dashboard' }
