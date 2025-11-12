@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { map, Observable, shareReplay } from 'rxjs';
@@ -17,6 +17,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 // Services
 import { AuthService } from '../../services/auth.service';
+import { User } from '@angular/fire/auth';
 
 @Component({
     selector: 'app-dashboard',
@@ -36,7 +37,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class DashboardComponent {
 
-    user$: Observable<any> | undefined;
+    user$: Observable<User | null> | undefined;
     isHandset$: Observable<boolean> | undefined;
 
     sidenavOpened = true;
@@ -49,8 +50,8 @@ export class DashboardComponent {
 
     constructor(
         private auth: AuthService,
+        private breakpointObserver: BreakpointObserver,
         public router: Router,
-        private breakpointObserver: BreakpointObserver
     ) { }
 
     ngOnInit(): void {

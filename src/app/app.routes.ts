@@ -11,16 +11,26 @@ const redirectLoggedUser = () => redirectLoggedInTo(['/dashboard']);
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'login', component: LoginPageComponent, canActivate: [AuthGuard], data: { authGuardPipe: redirectLoggedUser } },
-    { path: 'register', component: RegisterPageComponent, canActivate: [AuthGuard], data: { authGuardPipe: redirectLoggedUser } },
     {
-        path: 'dashboard',
+        path: 'login', title: 'Login',
+        component: LoginPageComponent,
+        canActivate: [AuthGuard],
+        data: { authGuardPipe: redirectLoggedUser }
+    },
+    {
+        path: 'register', title: 'Register',
+        component: RegisterPageComponent,
+        canActivate: [AuthGuard],
+        data: { authGuardPipe: redirectLoggedUser }
+    },
+    {
+        path: 'dashboard', title: 'Dashboard',
         component: DashboardComponent,
         canActivate: [AuthGuard],
         data: { authGuardPipe: redirectUnauthorized },
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: MainPageComponent }
+            { path: 'home', title: 'Home', component: MainPageComponent }
         ]
     },
     { path: '**', redirectTo: 'dashboard' }
