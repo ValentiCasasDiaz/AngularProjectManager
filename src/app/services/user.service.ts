@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Auth, updateProfile, user } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { sendEmailVerification } from 'firebase/auth';
+import { sendEmailVerification, sendPasswordResetEmail as firebaseSendPasswordResetEmail, reauthenticateWithCredential as firebaseReauthenticateWithCredential, EmailAuthProvider as FirebaseEmailAuthProvider, updatePassword as firebaseUpdatePassword } from 'firebase/auth';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -32,6 +32,22 @@ export class UserService {
     await sendEmailVerification(current);
   }
 
+  async sendPasswordReset(email: string): Promise<void> {
+    if (!email) throw new Error('Email required');
+    await firebaseSendPasswordResetEmail(this.auth as any, email);
+  }
+
+  async changePassword(currentPassword: string, newPassword: string): Promise<void> {
+    const current = this.auth.currentUser;
+    if (!current) throw new Error('Not authenticated');
+    if (!current.email) throw new Error('Current user has no email credential');
+
+    // Reauthenticate with current password, then update the password
+    const credential = FirebaseEmailAuthProvider.credential(current.email, currentPassword);
+    await firebaseReauthenticateWithCredential(current, credential);
+    await firebaseUpdatePassword(current, newPassword);
+  }
+
   async updateProfileData(data: { displayName?: string; photoURL?: string; phoneNumber?: string; }) {
     const current = this.auth.currentUser;
     if (!current) throw new Error('Not authenticated');
@@ -41,7 +57,6 @@ export class UserService {
       await updateProfile(current, { displayName: data.displayName, photoURL: data.photoURL });
     }
 
-    // Note: phoneNumber update typically requires linking a phone credential.
     return true;
   }
 }
