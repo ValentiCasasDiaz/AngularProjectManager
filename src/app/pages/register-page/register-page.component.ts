@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { merge } from 'rxjs';
+import { passwordMatchValidator } from '../../common/validators/password-match.validator';
 
 // Angular Material
 import { MatButtonModule } from '@angular/material/button';
@@ -15,7 +16,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // Services
 import { AuthService } from '../../services/auth.service';
-import { passwordMatchValidator } from '../../common/validators/password-match.validator';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-register-page',
@@ -53,7 +54,11 @@ export class RegisterPageComponent {
       validators: passwordMatchValidator
     });
 
-  constructor(private auth: AuthService, private router: Router) {
+  constructor(
+    private auth: AuthService, 
+    private router: Router,
+    private noti: NotificationService
+  ) {
     merge(this.registerForm.controls.email.statusChanges, this.registerForm.controls.email.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateEmailErrorMsg());
@@ -88,7 +93,7 @@ export class RegisterPageComponent {
 
       this.auth.register(email!, password!)
         .then(() => this.router.navigate(['/home']))
-        .catch(err => console.error('Error registre:', err))
+        .catch(err => this.noti.error(this.noti.firebaseAuthErrorMessage(err.code)))
         .finally(() => this.loading.set(false));
     }
   }

@@ -26,22 +26,22 @@
       </mat-form-field>
 
       <button mat-raised-button color="primary" class="full-width" type="submit"
-        [disabled]="loading || loginForm.invalid">
+        [disabled]="loading() || loginForm.invalid">
 
-        @if (!loading) {
+        @if (!loading()) {
         Entrar
         } @else {
         <mat-progress-spinner mode="indeterminate" diameter="24"></mat-progress-spinner>
         }
       </button>
 
-      <button mat-button color="accent" class="full-width" routerLink="/register" [disabled]="loading"
+      <button mat-button color="accent" class="full-width" routerLink="/register" [disabled]="loading()"
         style="margin-top: 16px;">
         Crear un compte
       </button>
 
       <button mat-button class="full-width" type="button" (click)="forgotPassword()" 
-      [disabled]="loading" style="margin-top:8px;">
+      [disabled]="loading()" style="margin-top:8px;">
         He oblidat la contrasenya
       </button>
     </form>

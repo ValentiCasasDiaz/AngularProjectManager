@@ -8,7 +8,7 @@ export class NotificationService {
   private snack = inject(MatSnackBar);
 
   private defaultConfig: MatSnackBarConfig = {
-    duration: 20000,
+    duration: 4000,
     horizontalPosition: 'center',
     verticalPosition: 'bottom',
     panelClass: ['snack-default']
@@ -35,5 +35,24 @@ export class NotificationService {
 
   warning(message: string) {
     this.open(message, 'snack-warning');
+  }
+
+  firebaseAuthErrorMessage(code: string): string {
+    switch (code) {
+      case 'auth/email-already-in-use':
+        return 'Aquest email ja està registrat.';
+      case 'auth/invalid-credential':
+        return 'L\'usuari o la contrassenya no són correctes';
+      case 'auth/invalid-email':
+        return 'Email invàlid.';
+      case 'auth/user-not-found':
+        return 'Aquest usuari no existeix.';
+      case 'auth/wrong-password':
+        return 'Contrasenya incorrecta.';
+      case 'auth/weak-password':
+        return 'La contrasenya hauria de tenir almenys 6 caràcters';
+      default:
+        return 'S\'ha produït un error inesperat.';
+    }
   }
 }

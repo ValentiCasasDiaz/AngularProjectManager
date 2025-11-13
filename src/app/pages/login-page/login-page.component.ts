@@ -41,7 +41,7 @@ export class LoginPageComponent {
   emailErrorMsg = signal('');
   hidePwd = signal(true);
 
-  loading = false;
+  loading = signal(false);
 
   fb: FormBuilder = new FormBuilder();
 
@@ -79,14 +79,14 @@ export class LoginPageComponent {
   onSubmit() {
     if (this.loginForm.valid) {
 
-      this.loading = true;
+      this.loading.set(true);
 
       const { email, password } = this.loginForm.value;
 
       this.auth.login(email!, password!)
         .then(() => this.router.navigate(['/main']))
-        .catch(err => console.error('Error login:', err))
-        .finally(() => this.loading = false);
+        .catch(err => this.noti.error(this.noti.firebaseAuthErrorMessage(err.code)))
+        .finally(() => this.loading.set(false));
     }
   }
 
@@ -97,7 +97,7 @@ export class LoginPageComponent {
       return;
     }
 
-    this.loading = true;
+    this.loading.set(true);
 
     try {
       await this.userService.sendPasswordReset(email);
@@ -105,8 +105,7 @@ export class LoginPageComponent {
     } catch (err: any) {
       this.noti.error(err?.message || 'Error enviant el correu de recuperació');
     } finally {
-      this.loading = false;
+      this.loading.set(false);
     }
   }
-
 }

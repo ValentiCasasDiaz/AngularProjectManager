@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 // Services
 import { AuthService } from '../../services/auth.service';
+import { NotificationService } from '../../services/notification.service';
 
 
 @Component({
@@ -38,7 +39,11 @@ export class MainPageComponent {
     { icon: 'settings', label: 'Configuració', route: '/settings' }
   ];
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(
+    private auth: AuthService, 
+    private router: Router,
+    private noti: NotificationService
+  ) {}
 
   toggleSidenav() {
     this.sidenavOpened.set(!this.sidenavOpened());
@@ -47,7 +52,7 @@ export class MainPageComponent {
   logout() {
     this.auth.logout()
     .then(() => this.router.navigate(['/login']))
-    .catch(err => console.error('Error logout:', err));
+    .catch(err => this.noti.error(this.noti.firebaseAuthErrorMessage(err.code)));
   }
 
 }
