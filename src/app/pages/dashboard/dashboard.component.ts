@@ -19,20 +19,22 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AuthService } from '../../services/auth.service';
 import { User } from '@angular/fire/auth';
 import { NotificationService } from '../../services/notification.service';
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 @Component({
     selector: 'app-dashboard',
     imports: [
-        CommonModule,
-        RouterModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatListModule,
-        MatIconModule,
-        MatButtonModule,
-        MatMenuModule,
-        MatDividerModule,
-    ],
+    CommonModule,
+    RouterModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatFormFieldModule
+],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.scss'
 })

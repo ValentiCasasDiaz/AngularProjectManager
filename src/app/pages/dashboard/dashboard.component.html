@@ -5,7 +5,8 @@
 
         <div class="sidenav-header">
             @if (user$ | async) {
-            <img (click)="goProfile()" [src]="(user$ | async)?.photoURL || 'assets/avatar-placeholder.png'" alt="avatar" class="avatar" />
+            <img (click)="goProfile()" [src]="(user$ | async)?.photoURL || 'assets/avatar-placeholder.png'" alt="avatar"
+                class="avatar" />
             <div class="user-info">
                 <div class="name">{{ (user$ | async)?.displayName || (user$ | async)?.email }}</div>
             </div>
@@ -22,10 +23,10 @@
         <mat-nav-list>
             @for (item of menuItems; track item.label) {
 
-            <a mat-list-item [routerLink]="item.route">
-                <mat-icon matListIcon>{{ item.icon }}</mat-icon>
-                <span matLine>{{ item.label }}</span>
-            </a>
+            <mat-list-item [routerLink]="item.route">
+                <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+                <h3 matListItemTitle>{{item.label}}</h3>
+            </mat-list-item>
 
             }
         </mat-nav-list>
