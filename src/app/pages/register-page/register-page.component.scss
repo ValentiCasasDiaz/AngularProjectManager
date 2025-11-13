@@ -8,8 +8,9 @@
   }
 
   mat-card {
-    width: 380px;
+    max-width: 380px;
     padding: 20px;
+    margin: 16px 40px;
   }
 
   mat-form-field {
