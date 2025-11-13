@@ -1,6 +1,6 @@
 <mat-sidenav-container class="dashboard-container">
 
-    <mat-sidenav #sidenav mode="side" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="sidenavOpened"
+    <mat-sidenav #sidenav mode="side" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="sidenavOpened()"
         class="dashboard-sidenav">
 
         <div class="sidenav-header">

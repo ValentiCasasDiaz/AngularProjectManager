@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { map, Observable, shareReplay } from 'rxjs';
@@ -18,6 +18,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 // Services
 import { AuthService } from '../../services/auth.service';
 import { User } from '@angular/fire/auth';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -40,7 +41,7 @@ export class DashboardComponent {
     user$: Observable<User | null> | undefined;
     isHandset$: Observable<boolean> | undefined;
 
-    sidenavOpened = true;
+    sidenavOpened = signal(true);
 
     menuItems = [
         { icon: 'home', label: 'Inici', route: '/dashboard/home' },
@@ -50,6 +51,7 @@ export class DashboardComponent {
     constructor(
         private auth: AuthService,
         private breakpointObserver: BreakpointObserver,
+        private noti: NotificationService,
         public router: Router,
     ) { }
 
@@ -58,21 +60,21 @@ export class DashboardComponent {
 
         // Sets the handset observer
         this.isHandset$ = this.breakpointObserver
-        .observe(Breakpoints.Handset)
-        .pipe(
-            map(result => result.matches),
-            shareReplay()
-        );
+            .observe(Breakpoints.Handset)
+            .pipe(
+                map(result => result.matches),
+                shareReplay()
+            );
     }
 
     toggleSidenav() {
-        this.sidenavOpened = !this.sidenavOpened;
+        this.sidenavOpened.set(!this.sidenavOpened);
     }
 
     logout() {
         this.auth.logout()
             .then(() => this.router.navigate(['/login']))
-            .catch(err => console.error('Logout error', err));
+            .catch(err => this.noti.error(this.noti.firebaseAuthErrorMessage(err.code)));
     }
 
     goProfile() {
