@@ -31,28 +31,6 @@ import { NotificationService } from '../../services/notification.service';
 })
 export class MainPageComponent {
 
-  sidenavOpened = signal(true);
-
-  menuItems = [
-    { icon: 'home', label: 'Inici', route: '/home' },
-    { icon: 'account_circle', label: 'Perfil', route: '/profile' },
-    { icon: 'settings', label: 'Configuració', route: '/settings' }
-  ];
-
-  constructor(
-    private auth: AuthService, 
-    private router: Router,
-    private noti: NotificationService
-  ) {}
-
-  toggleSidenav() {
-    this.sidenavOpened.set(!this.sidenavOpened());
-  }
-
-  logout() {
-    this.auth.logout()
-    .then(() => this.router.navigate(['/login']))
-    .catch(err => this.noti.error(this.noti.firebaseAuthErrorMessage(err.code)));
-  }
+  
 
 }
