@@ -15,7 +15,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // Services
 import { AuthService } from '../../services/auth.service';
-
+import { UserService } from '../../services/user.service';
+import { NotificationService } from '../../services/notification.service';
 
 
 @Component({
@@ -39,7 +40,7 @@ export class LoginPageComponent {
 
   emailErrorMsg = signal('');
   hidePwd = signal(true);
-  
+
   loading = false;
 
   fb: FormBuilder = new FormBuilder();
@@ -49,7 +50,12 @@ export class LoginPageComponent {
     password: ['', [Validators.required]],
   });
 
-  constructor(private auth: AuthService, private router: Router) {
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private userService: UserService,
+    private noti: NotificationService) 
+  {
     merge(this.loginForm.controls.email.statusChanges, this.loginForm.controls.email.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateEmailErrorMsg());
@@ -69,7 +75,7 @@ export class LoginPageComponent {
     this.hidePwd.set(!this.hidePwd());
     event.stopPropagation();
   }
-    
+
   onSubmit() {
     if (this.loginForm.valid) {
 
@@ -78,9 +84,28 @@ export class LoginPageComponent {
       const { email, password } = this.loginForm.value;
 
       this.auth.login(email!, password!)
-      .then(() => this.router.navigate(['/main']))
-      .catch(err => console.error('Error login:', err))
-      .finally(() => this.loading = false);
+        .then(() => this.router.navigate(['/main']))
+        .catch(err => console.error('Error login:', err))
+        .finally(() => this.loading = false);
+    }
+  }
+
+  async forgotPassword() {
+    const email = this.loginForm.value.email as string;
+    if (!email) {
+      this.noti.error('Introdueix el correu per rebre l\'enllaç de recuperació');
+      return;
+    }
+
+    this.loading = true;
+
+    try {
+      await this.userService.sendPasswordReset(email);
+      this.noti.success('S\'ha enviat un correu per restablir la contrasenya');
+    } catch (err: any) {
+      this.noti.error(err?.message || 'Error enviant el correu de recuperació');
+    } finally {
+      this.loading = false;
     }
   }
 

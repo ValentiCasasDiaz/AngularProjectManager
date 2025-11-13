@@ -1,4 +1,49 @@
+@use '@angular/material' as mat;
+
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// Notifications done with the service
+$snack-radius: 8px;
+
+.snack-success {
+  @include mat.snack-bar-overrides((
+    container-color: #4caf50,
+    supporting-text-color: #fff
+  ));
+  border-radius: $snack-radius;
+}
+
+.snack-error {
+  @include mat.snack-bar-overrides((
+    container-color: #f44336,
+    supporting-text-color: #fff
+  ));
+  border-radius: $snack-radius;
+}
+
+.snack-info {
+  @include mat.snack-bar-overrides((
+    container-color: #2196f3,
+    supporting-text-color: #fff
+  ));
+  border-radius: $snack-radius;
+}
+
+.snack-warning {
+  @include mat.snack-bar-overrides((
+      container-color: #ff9800,
+      supporting-text-color: #fff
+  ));
+  border-radius: $snack-radius;
+}
+
+.snack-default {
+  @include mat.snack-bar-overrides((
+      container-color: #424242,
+      supporting-text-color: #fff
+  ));
+  border-radius: $snack-radius;
+}
