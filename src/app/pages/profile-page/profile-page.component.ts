@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -9,11 +9,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // Services
 import { UserService } from '../../services/user.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
     selector: 'app-profile-page',
@@ -27,7 +27,6 @@ import { UserService } from '../../services/user.service';
         MatInputModule,
         MatButtonModule,
         MatIconModule,
-        MatSnackBarModule,
         MatProgressSpinnerModule,
     ],
     templateUrl: './profile-page.component.html',
@@ -41,23 +40,27 @@ export class ProfilePageComponent implements OnInit {
     });
 
     // Change password form
-    showChangePassword = false;
+    showChangePassword = signal(false);
     changePwdForm = new FormGroup({
         currentPassword: new FormControl('', Validators.required),
         newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
         confirmPassword: new FormControl('', Validators.required),
     });
 
-    isChangingPassword = false;
+    isChangingPassword = signal(false);
 
+    // Image upload
     selectedFile: File | null = null;
     previewUrl: string | null = null;
-    isSaving = false;
-    emailVerified = false;
+    
+    // Email verification
+    emailVerified = signal(false);
+
+    isSaving = signal(false);
 
     constructor(
         private userService: UserService, 
-        private snack: MatSnackBar) { }
+        private noti: NotificationService) { }
 
     ngOnInit(): void {
 
@@ -69,17 +72,14 @@ export class ProfilePageComponent implements OnInit {
                     displayName: user.displayName || ''
                 });
                 this.previewUrl = user.photoURL || null;
-                this.emailVerified = !!user.emailVerified;
-
-                console.log(user);
-                
+                this.emailVerified.set(!!user.emailVerified);
             }
         });
 
     }
 
     toggleChangePassword() {
-        this.showChangePassword = !this.showChangePassword;
+        this.showChangePassword.set(!this.showChangePassword);
     }
 
     async changePassword() {
@@ -90,31 +90,32 @@ export class ProfilePageComponent implements OnInit {
         const confirm = this.changePwdForm.value.confirmPassword as string;
 
         if (newPwd !== confirm) {
-            this.snack.open('La nova contrasenya i la confirmació no coincideixen', 'Tancar', { duration: 3000 });
+            this.noti.error('La nova contrasenya i la confirmació no coincideixen');
             return;
         }
 
-        this.isChangingPassword = true;
+        this.isChangingPassword.set(true);
+
         try {
             await this.userService.changePassword(current, newPwd);
-            this.snack.open('Contrasenya actualitzada correctament', 'Tancar', { duration: 3000 });
+            this.noti.success('Contrasenya actualitzada correctament');
             this.changePwdForm.reset();
-            this.showChangePassword = false;
+            this.showChangePassword.set(false);
+
         } catch (err: any) {
-            console.error('Error changing password', err);
-            this.snack.open(err?.message || 'Error canviant la contrasenya', 'Tancar', { duration: 4000 });
+            this.noti.error('Error canviant la contrasenya');
+        
         } finally {
-            this.isChangingPassword = false;
+            this.isChangingPassword.set(false);
         }
     }
 
     async sendVerification() {
         try {
             await this.userService.sendVerificationEmail();
-            this.snack.open('Correu de verificació enviat', 'Tancar', { duration: 3000 });
+            this.noti.success('Correu de verificació enviat');
         } catch (err: any) {
-            console.error('Error sending verification', err);
-            this.snack.open(err?.message || 'Error enviant el correu de verificació', 'Tancar', { duration: 4000 });
+            this.noti.error('Error enviant el correu de verificació');
         }
     }
 
@@ -131,7 +132,7 @@ export class ProfilePageComponent implements OnInit {
     async save() {
         if (this.form.invalid) return;
 
-        this.isSaving = true;
+        this.isSaving.set(true);
 
         try {
             let photoURL: string | undefined;
@@ -144,13 +145,12 @@ export class ProfilePageComponent implements OnInit {
                 photoURL
             });
 
-            this.snack.open('Perfil actualitzat', 'Tancar', { duration: 3000 });
+            this.noti.info('Perfil actualitzat');
 
         } catch (err: any) {
-            console.error(err);
-            this.snack.open(err?.message || 'Error actualitzant el perfil', 'Tancar', { duration: 4000 });
+            this.noti.error('Error actualitzant el perfil');
         } finally {
-            this.isSaving = false;
+            this.isSaving.set(false);
         }
     }
 }
