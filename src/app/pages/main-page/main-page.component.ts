@@ -1,6 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 
 // Material
@@ -9,10 +9,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-
-// Services
-import { AuthService } from '../../services/auth.service';
-import { NotificationService } from '../../services/notification.service';
 
 
 @Component({
@@ -27,7 +23,7 @@ import { NotificationService } from '../../services/notification.service';
     MatButtonModule,
   ],
   templateUrl: './main-page.component.html',
-  styleUrl: './main-page.component.scss'
+  styleUrl: './main-page.component.css'
 })
 export class MainPageComponent {
 

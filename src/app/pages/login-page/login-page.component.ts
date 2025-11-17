@@ -33,7 +33,7 @@ import { NotificationService } from '../../services/notification.service';
     MatProgressSpinnerModule,
   ],
   templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.scss',
+  styleUrl: './login-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPageComponent {

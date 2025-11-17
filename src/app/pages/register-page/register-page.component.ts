@@ -32,7 +32,7 @@ import { NotificationService } from '../../services/notification.service';
     MatProgressSpinnerModule
   ],
   templateUrl: './register-page.component.html',
-  styleUrl: './register-page.component.scss',
+  styleUrl: './register-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterPageComponent {
