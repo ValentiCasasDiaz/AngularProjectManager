@@ -1,23 +1,6 @@
-.auth-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
+.auth-container { display: flex; justify-content: center; margin-top: 28px; }
 
-  mat-card-title {
-    margin-bottom: 20px;
-  }
+/* Smaller card and reduced spacing for smaller CSS output */
+mat-card { max-width: 340px; padding: 12px; margin: 12px 20px; }
 
-  mat-card {
-    max-width: 380px;
-    padding: 20px;
-    margin: 16px 40px;
-  }
-
-  mat-form-field {
-    padding-bottom: 10px;
-  }
-
-  .full-width {
-    width: 100%;
-  }
-}
+mat-form-field { margin-bottom: 8px; }

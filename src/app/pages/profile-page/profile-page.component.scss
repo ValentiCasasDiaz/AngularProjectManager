@@ -1,25 +1,25 @@
+/* Reduced and simplified profile styles to lower CSS size */
 .profile-card {
-  max-width: 720px;
-  margin: 16px auto;
-  padding: 16px;
+  max-width: 480px;
+  margin: 12px auto;
+  padding: 12px;
 }
 .avatar-wrapper {
-  display:flex;
-  justify-content:center;
-  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
 }
 .avatar-preview {
-  width: 120px;
-  height: 120px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
 }
 .avatar-preview.placeholder {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size: 72px;
-  background: #eee;
-  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  background: #f5f5f5;
+  color: #777;
 }
-.full-width { width: 100%; }
