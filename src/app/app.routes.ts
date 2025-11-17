@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { DashboardPageComponent } from './pages/dashboard/dashboard-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+
 
 // Angular Fire imports
 import { AuthGuard, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
@@ -25,7 +26,7 @@ export const routes: Routes = [
     },
     {
         path: 'dashboard', title: 'Dashboard',
-        component: DashboardComponent,
+        component: DashboardPageComponent,
         canActivate: [AuthGuard],
         data: { authGuardPipe: redirectUnauthorized },
         children: [

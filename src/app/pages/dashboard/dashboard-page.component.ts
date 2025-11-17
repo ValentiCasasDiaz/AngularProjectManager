@@ -22,7 +22,7 @@ import { NotificationService } from '../../services/notification.service';
 import { MatFormFieldModule } from "@angular/material/form-field";
 
 @Component({
-    selector: 'app-dashboard',
+    selector: 'app-dashboard-page',
     imports: [
     CommonModule,
     RouterModule,
@@ -35,10 +35,10 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     MatDividerModule,
     MatFormFieldModule
 ],
-    templateUrl: './dashboard.component.html',
-    styleUrl: './dashboard.component.scss'
+    templateUrl: './dashboard-page.component.html',
+    styleUrl: './dashboard-page.component.scss'
 })
-export class DashboardComponent {
+export class DashboardPageComponent {
 
     user$: Observable<User | null> | undefined;
     isHandset$: Observable<boolean> | undefined;
