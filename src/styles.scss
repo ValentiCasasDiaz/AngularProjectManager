@@ -1,5 +1,5 @@
-/* @use '@angular/material' as mat;
-$snack-radius: 8px; */
+@use '@angular/material' as mat;
+$snack-radius: 8px;
 
 
 /* You can add global styles to this file, and also import other style files */
@@ -11,9 +11,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   width: 100%;
 }
 
-/* Notifications done with the service */
-/* .snack-success {
-  border-radius: 9px;
+// Notifications done with the service
+.snack-success {
+  border-radius: $snack-radius;
 
   @include mat.snack-bar-overrides((
     container-color: #4caf50,
@@ -55,4 +55,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       container-color: #424242,
       supporting-text-color: #fff
   ));
-} */
+}

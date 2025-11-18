@@ -36,7 +36,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     MatFormFieldModule
 ],
     templateUrl: './dashboard-page.component.html',
-    styleUrl: './dashboard-page.component.css'
+    styleUrl: './dashboard-page.component.scss'
 })
 export class DashboardPageComponent {
 

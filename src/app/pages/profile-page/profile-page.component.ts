@@ -30,7 +30,7 @@ import { NotificationService } from '../../services/notification.service';
         MatProgressSpinnerModule,
     ],
     templateUrl: './profile-page.component.html',
-    styleUrls: ['./profile-page.component.css']
+    styleUrls: ['./profile-page.component.scss']
 })
 export class ProfilePageComponent implements OnInit {
 
