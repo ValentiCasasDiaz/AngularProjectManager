@@ -7,6 +7,7 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 
 // Angular Fire imports
 import { AuthGuard, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
+import { AdminGuard } from './guards/admin.guard';
 const redirectUnauthorized = () => redirectUnauthorizedTo(['/login']);
 const redirectLoggedUser = () => redirectLoggedInTo(['/dashboard']);
 
@@ -33,6 +34,7 @@ export const routes: Routes = [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', title: 'Home', component: MainPageComponent },
             { path: 'profile', title: 'Perfil', loadComponent: () => import('./pages/profile-page/profile-page.component').then(m => m.ProfilePageComponent) }
+            ,{ path: 'users', title: 'Usuaris', loadComponent: () => import('./pages/users/users-page.component').then(m => m.UsersPageComponent), canActivate: [AdminGuard] }
         ]
     },
     { path: '**', redirectTo: 'dashboard' }
