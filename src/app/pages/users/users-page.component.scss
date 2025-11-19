@@ -1,0 +1,22 @@
+mat-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.left {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.info .secondary {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}

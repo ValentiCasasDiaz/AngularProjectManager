@@ -29,6 +29,12 @@
             </mat-list-item>
 
             }
+            @if (isAdmin$ | async) {
+            <mat-list-item [routerLink]="'/dashboard/users'">
+                <mat-icon matListItemIcon>people</mat-icon>
+                <h3 matListItemTitle>Usuaris</h3>
+            </mat-list-item>
+            }
         </mat-nav-list>
 
         <div class="sidenav-footer">

@@ -42,12 +42,13 @@ export class DashboardPageComponent {
 
     user$: Observable<User | null> | undefined;
     isHandset$: Observable<boolean> | undefined;
+    isAdmin$: Observable<boolean> | undefined;
 
     sidenavOpened = signal(true);
 
     menuItems = [
         { icon: 'home', label: 'Inici', route: '/dashboard/home' },
-        { icon: 'settings', label: 'Configuració', route: '/dashboard/settings' }
+        // { icon: 'settings', label: 'Configuració', route: '/dashboard/settings' }
     ];
 
     constructor(
@@ -59,6 +60,7 @@ export class DashboardPageComponent {
 
     ngOnInit(): void {
         this.user$ = this.auth.currentUser$;
+        this.isAdmin$ = this.auth.isAdmin$;
 
         // Sets the handset observer
         this.isHandset$ = this.breakpointObserver

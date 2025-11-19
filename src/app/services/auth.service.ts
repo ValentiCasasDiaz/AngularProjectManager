@@ -7,7 +7,8 @@ import {
   User,
   user
 } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
+import { Observable, from, switchMap, map } from 'rxjs';
+import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,30 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   currentUser$: Observable<User | null>;
+  isAdmin$: Observable<boolean>;
 
   constructor(
     private auth: Auth,
+    private firestore: Firestore
   ) {
     this.currentUser$ = user(this.auth);
+
+    // Expose an observable that returns true when the Firestore user document has roles.admin === true.
+    this.isAdmin$ = this.currentUser$.pipe(
+      switchMap(u => {
+        
+        if (!u) { 
+          return from([false]);
+        }
+        
+        return from(u.getIdTokenResult()).pipe(
+          switchMap(res => {
+            const ref = doc(this.firestore, `users/${u.uid}`);
+            return from(getDoc(ref)).pipe(map(snap => !!(snap.exists() && ((snap.data() as any)?.roles?.admin))));
+          })
+        );
+      })
+    );
   }
 
   async login(email: string, password: string): Promise<User | void> {
