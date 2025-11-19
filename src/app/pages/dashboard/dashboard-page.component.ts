@@ -42,7 +42,6 @@ export class DashboardPageComponent {
 
     user$: Observable<User | null> | undefined;
     isHandset$: Observable<boolean> | undefined;
-    isAdmin$: Observable<boolean> | undefined;
 
     sidenavOpened = signal(true);
 
@@ -60,7 +59,6 @@ export class DashboardPageComponent {
 
     ngOnInit(): void {
         this.user$ = this.auth.currentUser$;
-        this.isAdmin$ = this.auth.isAdmin$;
 
         // Sets the handset observer
         this.isHandset$ = this.breakpointObserver
