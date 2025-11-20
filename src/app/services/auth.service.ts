@@ -8,7 +8,7 @@ import {
   user
 } from '@angular/fire/auth';
 import { Observable, from, switchMap, map } from 'rxjs';
-import { Firestore, doc, getDoc } from '@angular/fire/firestore';
+import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -55,7 +55,22 @@ export class AuthService {
   async register(email: string, password: string): Promise<User | void> {
     try {
       const cred = await createUserWithEmailAndPassword(this.auth, email, password);
-      return cred.user;
+      const created = cred.user;
+
+      // Create a Firestore user document with default roles (admin: false)
+      try {
+        const ref = doc(this.firestore, `users/${created.uid}`);
+        await setDoc(ref, {
+          email: created.email || email,
+          displayName: created.displayName || null,
+          roles: { admin: false },
+          createdAt: new Date().toISOString()
+        });
+      } catch (err) {
+        throw err;
+      }
+
+      return created;
 
     } catch (err: any) {
       throw err;
