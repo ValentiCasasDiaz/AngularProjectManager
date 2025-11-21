@@ -45,8 +45,31 @@ export class UsersPageComponent {
 
     async toggleAdmin(u: any, event: any) {
         const checked = !!event.checked;
+
         try {
             await this.userService.setUserRoles(u.id, { ...(u.roles || {}), admin: checked });
+            this.noti.success('Rol actualitzat');
+        } catch (err) {
+            this.noti.error('Error actualitzant rol');
+        }
+    }
+
+    async toggleTeacher(u: any, event: any) {
+        const checked = !!event.checked;
+        
+        try {
+            await this.userService.setUserRoles(u.id, { ...(u.roles || {}), teacher: checked });
+            this.noti.success('Rol actualitzat');
+        } catch (err) {
+            this.noti.error('Error actualitzant rol');
+        }
+    }
+
+    async toggleStudent(u: any, event: any) {
+        const checked = !!event.checked;
+        
+        try {
+            await this.userService.setUserRoles(u.id, { ...(u.roles || {}), student: checked });
             this.noti.success('Rol actualitzat');
         } catch (err) {
             this.noti.error('Error actualitzant rol');

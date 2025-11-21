@@ -63,7 +63,8 @@ export class AuthService {
         await setDoc(ref, {
           email: created.email || email,
           displayName: created.displayName || null,
-          roles: { admin: false },
+          roles: { admin: false, teacher: false, student: false }, // By default user needs to be confirmed by Admin
+          deleted: false, // Flag to avoid seeing users
           createdAt: new Date().toISOString()
         });
       } catch (err) {

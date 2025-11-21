@@ -1,31 +1,45 @@
-<mat-card>
-  <mat-card-title>Gestió d'usuaris</mat-card-title>
+<div class="container">
+  <h2>Gestió d'usuaris</h2>
 
   @if (users$ | async; as users) {
-    <mat-list>
-        @for (u of users; track u.email) {
-            <mat-list-item>
-                <div class="left">
-                <mat-icon>person</mat-icon>
-                <div class="info">
-                    <div class="name">{{ u.displayName || u.email || 'Usuari' }}</div>
-                    <div class="secondary">{{ u.email }}</div>
-                </div>
-                </div>
-                
 
-                <div class="actions">
-                <mat-slide-toggle [checked]="u.roles?.admin" (change)="toggleAdmin(u, $event)">Admin</mat-slide-toggle>
-                <button mat-icon-button color="warn" (click)="removeUserDoc(u)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-                </div>
-            </mat-list-item>
-      }
-    </mat-list>
+  <div class="list-users">
+
+    @for (u of users; track u.email) {
+    <div class="user-card">
+
+      <img class="avatar" [src]="u?.photoURL || 'assets/avatar-placeholder.png'" alt="avatar" class="avatar" />
+
+      <div class="info">
+        <div class="name">{{ u.displayName || u.email || 'Usuari' }}</div>
+        <div class="secondary">{{ u.email }}</div>
+      </div>
+
+      <div class="roles">
+        <mat-slide-toggle [checked]="u.roles?.admin" (change)="toggleAdmin(u, $event)">
+          <mat-icon>admin_panel_settings</mat-icon>
+        </mat-slide-toggle>
+        
+        <mat-slide-toggle [checked]="u.roles?.teacher" (change)="toggleTeacher(u, $event)">
+          <mat-icon>school</mat-icon>
+        </mat-slide-toggle>
+
+        <mat-slide-toggle [checked]="u.roles?.student" (change)="toggleStudent(u, $event)">
+          <mat-icon>person</mat-icon>  
+        </mat-slide-toggle>
+      </div>
+
+      <div class="actions">
+        <button mat-icon-button color="warn" (click)="removeUserDoc(u)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+
   }
   @else {
-    <p>No hi ha usuaris registrats (s'espera una col·lecció `users` a Firestore).</p>
+  <p>No hi ha usuaris registrats (s'espera una col·lecció `users` a Firestore).</p>
   }
-
-</mat-card>
+</div>
