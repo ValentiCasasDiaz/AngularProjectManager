@@ -48,6 +48,11 @@ export class DashboardPageComponent {
 
     menuItems = [
         { icon: 'home', label: 'Inici', route: '/dashboard/home' },
+        // CONJUNTS d'usuaris, per exemple SMX2C, Raid de 40 persones...
+        // Cada conjunt té les seves propies eines, finalitats i coses...
+        { icon: 'grou_work', label: 'Conjunts', route: '#' },
+        // Dins de cada CONJUNT, hi han els diferents grups de X usuaris     
+        { icon: 'groups', label: 'Grups de treball', route: '#' } // Subdivisió
         // { icon: 'settings', label: 'Configuració', route: '/dashboard/settings' }
     ];
 

@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Firestore, collection, collectionData, doc, updateDoc } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest, map, startWith } from 'rxjs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 // Material
 import { MatCardModule } from '@angular/material/card';
@@ -19,13 +22,16 @@ import { NotificationService } from '../../services/notification.service';
     selector: 'app-users-page',
     standalone: true,
     imports: [
-        CommonModule, 
-        MatCardModule, 
-        MatListModule, 
-        MatIconModule, 
-        MatButtonModule, 
-        MatDividerModule, 
-        MatSlideToggleModule, 
+        CommonModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatListModule,
+        MatIconModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatSlideToggleModule,
     ],
     templateUrl: './users-page.component.html',
     styleUrls: ['./users-page.component.scss']
@@ -33,6 +39,8 @@ import { NotificationService } from '../../services/notification.service';
 export class UsersPageComponent {
 
     users$: Observable<any[]>;
+    search = new FormControl('');
+    filteredUsers$: Observable<any[]>;
 
     constructor(
         private firestore: Firestore,
@@ -41,6 +49,17 @@ export class UsersPageComponent {
     ) {
         const usersCol = collection(this.firestore, 'users');
         this.users$ = collectionData(usersCol, { idField: 'id' });
+        this.filteredUsers$ = combineLatest([this.users$, this.search.valueChanges.pipe(startWith(''))]).pipe(
+            map(([users, q]) => {
+                const term = (q || '').toString().trim().toLowerCase();
+                if (!term) return users;
+                return users.filter(u => {
+                    const name = (u.displayName || '').toString().toLowerCase();
+                    const email = (u.email || '').toString().toLowerCase();
+                    return name.includes(term) || email.includes(term);
+                });
+            })
+        );
     }
 
     async toggleAdmin(u: any, event: any) {

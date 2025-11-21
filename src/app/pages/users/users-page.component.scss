@@ -4,6 +4,11 @@
     width: 100%;
 }
 
+.search-field {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
 .list-users {
     display: flex;
     align-items: center;
@@ -62,7 +67,6 @@
     gap: 8px;
     justify-content: space-evenly;
 
-    @include mat.icon-button-overrides((
-        icon-color: red,
-    ));
+    @include mat.icon-button-overrides((icon-color: red,
+        ));
 }
