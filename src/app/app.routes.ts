@@ -2,11 +2,11 @@ import { Routes } from '@angular/router';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { DashboardPageComponent } from './pages/dashboard/dashboard-page.component';
-import { MainPageComponent } from './pages/main-page/main-page.component';
 
 // Angular Fire imports
 import { AuthGuard, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
 import { AdminGuard } from './guards/admin.guard';
+import { WorkGroupsPageComponent } from './pages/work-groups-page/work-groups-page.component';
 const redirectUnauthorized = () => redirectUnauthorizedTo(['/login']);
 const redirectLoggedUser = () => redirectLoggedInTo(['/dashboard']);
 
@@ -30,8 +30,8 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         data: { authGuardPipe: redirectUnauthorized },
         children: [
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', title: 'Home', component: MainPageComponent },
+            { path: '', redirectTo: 'work-groups', pathMatch: 'full' },
+            { path: 'work-groups', title: 'Work Groups', component: WorkGroupsPageComponent },
             {
                 path: 'profile', title: 'Perfil',
                 loadComponent: () => import('./pages/profile-page/profile-page.component').then(m => m.ProfilePageComponent)
