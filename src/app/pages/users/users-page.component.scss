@@ -67,6 +67,5 @@
     gap: 8px;
     justify-content: space-evenly;
 
-    @include mat.icon-button-overrides((icon-color: red,
-        ));
+    @include mat.icon-button-overrides((icon-color: red));
 }

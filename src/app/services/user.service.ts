@@ -3,10 +3,12 @@ import { Auth, updateProfile, user } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { sendEmailVerification, sendPasswordResetEmail as firebaseSendPasswordResetEmail, reauthenticateWithCredential as firebaseReauthenticateWithCredential, EmailAuthProvider as FirebaseEmailAuthProvider, updatePassword as firebaseUpdatePassword } from 'firebase/auth';
-import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
+import { DocumentReference, Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
+
+  private collectionPath = 'users';
   currentUser$: Observable<any>;
 
   constructor(private auth: Auth, private firestore: Firestore) {
@@ -61,19 +63,33 @@ export class UserService {
     return true;
   }
 
-  // Roles management stored in Firestore under `users/{uid}.roles`
+  // Roles management stored in Firestore under `{this.collectionPath}/{uid}.roles`
   async setUserRoles(uid: string, roles: Record<string, boolean>) {
     if (!uid) throw new Error('uid required');
     
-    const ref = doc(this.firestore, `users/${uid}`);
+    const ref = doc(this.firestore, `${this.collectionPath}/${uid}`);
     // Merge roles into the user document
     await setDoc(ref, { roles }, { merge: true } as any);
   }
 
-  async getUserDoc(uid: string) {
-    if (!uid) throw new Error('uid required');
-    const ref = doc(this.firestore, `users/${uid}`);
-    const snap = await getDoc(ref);
-    return snap.exists() ? snap.data() : null;
+  // NOT USED
+  // async getUserDoc(uid: string) {
+    
+  //   if (!uid) 
+  //     throw new Error('uid required');
+
+  //   const ref = doc(this.firestore, `${this.collectionPath}/${uid}`);
+  //   const snap = await getDoc(ref);
+
+  //   return snap.exists() ? snap.data() : null;
+  // }
+
+  getCurrentUserRef(): DocumentReference {
+    const uid = this.auth.currentUser?.uid;
+
+    if (!uid) 
+      throw new Error('uid required');
+
+    return doc(this.firestore, `${this.collectionPath}/${uid}`);
   }
 }

@@ -1,1 +1,85 @@
-<p>work-groups-page works!</p>
+<div class="container">
+
+  @if (editing) {
+  <mat-card class="form-card">
+    <mat-card-title>@if (!editing) { Crear grup de treball } @else { Editar grup }</mat-card-title>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <mat-form-field class="full-width">
+        <mat-label>Nom</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Descripció</mat-label>
+        <input matInput formControlName="description" />
+      </mat-form-field>
+
+      <mat-slide-toggle formControlName="isActive">Actiu</mat-slide-toggle>
+
+      <div class="actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || isSaving">
+          @if (isSaving) { <mat-icon>hourglass_top</mat-icon> } @else { Desa }
+        </button>
+
+        <button mat-button type="button" (click)="newGroup()">Netejar</button>
+      </div>
+    </form>
+  </mat-card>
+  }
+  @else {
+    <div class="list-workgroups">
+      <h2>Llista de grups de treball</h2>
+
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput placeholder="Cerca per nom o correu" [formControl]="search" />
+      </mat-form-field>
+
+      @for (g of groups$ | async; track g.id) {
+        <div class="workgroups-card">
+            <div class="card-title"> {{g.name}} </div>
+            <div class="card-description">{{g.description}}</div>
+            
+            <div class="card-actions">
+
+              <div [class]="['btn-emboss','left-action']" mat-icon-button>
+                <mat-icon>edit</mat-icon>
+              </div>
+
+              <div [class]="['btn-emboss', 'mid-action']" mat-icon-button>
+                <mat-icon>visibility</mat-icon>
+              </div>
+
+              <div [class]="['btn-emboss', 'right-action']" mat-icon-button>
+                <mat-icon>delete</mat-icon>
+              </div>
+
+            </div>
+        </div>
+      }
+
+    </div>
+
+  <!-- <mat-card class="list-card">
+    <mat-card-title>Llista de grups</mat-card-title>
+    <mat-list>
+
+      @for (g of groups$ | async; track g.id) {
+      <mat-list-item>
+        <div class="main">
+          <div class="title">{{ g.name }}</div>
+          <div class="desc">{{ g.description }}</div>
+        </div>
+
+        <div class="meta">
+          <mat-slide-toggle [checked]="g.isActive" (change)="wg.setActive(g.id!, $event.checked)">Actiu</mat-slide-toggle>
+          <button mat-icon-button (click)="editGroup(g)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button color="warn" (click)="deleteGroup(g)"><mat-icon>delete</mat-icon></button>
+        </div>
+      </mat-list-item>
+      }
+    </mat-list>
+  </mat-card> -->
+  }
+</div>

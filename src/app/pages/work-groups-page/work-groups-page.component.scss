@@ -1,0 +1,76 @@
+@use '@angular/material' as mat;
+
+.container {
+    width: 100%;
+}
+
+.search-field {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.list-workgroups {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.workgroups-card {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    width: 300px;
+    margin: 10px;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.card-title {
+    margin: 10px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.card-description {
+    margin: 10px;
+    font-style: italic;
+}
+
+.card-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.btn-emboss {
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #b5b5b5;
+    transition: all 0.1s ease-in-out;
+}
+
+.btn-emboss:active {
+    /* Quan es clica, baixa i sembla premsat */
+    box-shadow: 0 2px 0 #b5b5b5;
+    transform: translateY(2px);
+}
+
+.left-action {
+    border-radius: 0 0 0 15px;
+    background-color: blue;
+}
+
+.mid-action {
+    background-color: blueviolet;
+}
+
+.right-action {
+    border-radius: 0 0 15px 0;
+    background-color: red;
+}
+
