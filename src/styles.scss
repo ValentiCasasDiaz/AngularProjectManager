@@ -1,58 +1,76 @@
-@use '@angular/material' as mat;
-$snack-radius: 8px;
+// Import order recomanat
+@import 'abstracts/variables';
+@import 'abstracts/colors';
+@import 'abstracts/mixins';
+@import 'abstracts/functions';
 
 
-/* You can add global styles to this file, and also import other style files */
+@import 'base/reset';
+@import 'base/globals';
+@import 'base/typography';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.full-width {
-  width: 100%;
-}
+@import 'layout/grid';
+@import 'layout/spacing';
+
+
+@import 'themes/theme';
+
+
+@import 'components/buttons';
+@import 'components/cards';
+@import 'components/inputs'
+
+
+
+// @use '@angular/material' as mat;
+// @import 'styles/colors';
+
+// $snack-radius: 8px;
+
+// html,
+// body {
+//   height: 100%;
+// }
+// .full-width { width: 100%; }
+// body {
+//   margin: 0;
+//   font-family: Roboto, "Helvetica Neue", sans-serif;
+//   background-color: $color-light;
+// }
 
 // Notifications done with the service
-.snack-success {
-  border-radius: $snack-radius;
+// .snack-success {
+//   border-radius: $snack-radius;
 
-  @include mat.snack-bar-overrides((
-    container-color: #4caf50,
-    supporting-text-color: #fff
-  ));
-}
+//   @include mat.snack-bar-overrides((container-color: $color-success,
+//       supporting-text-color: #fff));
+// }
 
-.snack-error {
-  border-radius: $snack-radius;
-  
-  @include mat.snack-bar-overrides((
-    container-color: #f44336,
-    supporting-text-color: #fff
-  ));
-}
+// .snack-error {
+//   border-radius: $snack-radius;
 
-.snack-info {
-  border-radius: $snack-radius;
+//   @include mat.snack-bar-overrides((container-color: $color-danger,
+//       supporting-text-color: #fff));
+// }
 
-  @include mat.snack-bar-overrides((
-    container-color: #2196f3,
-    supporting-text-color: #fff
-  ));
-}
+// .snack-info {
+//   border-radius: $snack-radius;
 
-.snack-warning {
-  border-radius: $snack-radius;
+//   @include mat.snack-bar-overrides((container-color: $color-info,
+//       supporting-text-color: #fff));
+// }
 
-  @include mat.snack-bar-overrides((
-      container-color: #ff9800,
-      supporting-text-color: #fff
-  ));
-}
+// .snack-warning {
+//   border-radius: $snack-radius;
 
-.snack-default {
-  border-radius: $snack-radius;
+//   @include mat.snack-bar-overrides((container-color: $color-warning,
+//       supporting-text-color: #fff));
+// }
 
-  @include mat.snack-bar-overrides((
-      container-color: #424242,
-      supporting-text-color: #fff
-  ));
-}
+// .snack-default {
+//   border-radius: $snack-radius;
+
+//   @include mat.snack-bar-overrides((container-color: #424242,
+//       supporting-text-color: #fff));
+// }

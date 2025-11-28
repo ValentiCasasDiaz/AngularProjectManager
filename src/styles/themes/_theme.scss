@@ -1,0 +1,8 @@
+[data-theme='light'] {
+    @extend .light-theme;
+}
+
+
+[data-theme='dark'] {
+    @extend .dark-theme;
+}
