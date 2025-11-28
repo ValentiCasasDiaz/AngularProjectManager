@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-palette-test',
@@ -8,9 +9,12 @@ import { Component } from '@angular/core';
 })
 export class PaletteTestComponent {
 
+  constructor(private theme: ThemeService) {
+
+  }
+
   toggleTheme() {
-    const theme = document.body.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-    document.body.setAttribute('data-theme', theme);
+    this.theme.toggleTheme();
   }
 
 }
