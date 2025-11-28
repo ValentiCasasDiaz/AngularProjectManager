@@ -1,0 +1,71 @@
+/* =====================
+* palette-test.component.scss
+* ===================== */
+.palette-wrapper {
+    padding: 2rem;
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition: background 0.3s, color 0.3s;
+
+    h2,
+    h3 {
+        margin-bottom: 1rem;
+    }
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-inverted);
+    background: var(--color-primary);
+}
+
+.color-section {
+    margin-top: 2rem;
+}
+
+.color-swatch {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-inverted);
+    font-weight: bold;
+
+    &.primary {
+        background: var(--color-primary);
+    }
+
+    &.secondary {
+        background: var(--color-secondary);
+    }
+
+    &.success {
+        background: var(--color-success);
+    }
+
+    &.warning {
+        background: var(--color-warning);
+    }
+
+    &.error {
+        background: var(--color-error);
+    }
+
+    &.info {
+        background: var(--color-info);
+    }
+}
+
+.gray-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+}
+
+.gray {
+    height: 40px;
+    border-radius: 4px;
+}

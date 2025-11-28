@@ -1,0 +1,26 @@
+<div class="palette-wrapper">
+    <h2>Prova de paleta Light/Dark</h2>
+
+    <button class="btn btn--primary" (click)="toggleTheme()">
+        Canvia Tema
+    </button>
+
+    <section class="color-section">
+        <h3>Colors Principals</h3>
+        <div class="color-swatch primary">Primary</div>
+        <div class="color-swatch secondary">Secondary</div>
+        <div class="color-swatch success">Success</div>
+        <div class="color-swatch warning">Warning</div>
+        <div class="color-swatch error">Error</div>
+        <div class="color-swatch info">Info</div>
+    </section>
+
+    <section class="color-section">
+        <h3>Escala de grisos</h3>
+        <div class="gray-grid">
+            @for (i of [0,50,100,200,300,400,500,600,700,800,900,1000]; track $index) {
+                <div class="gray" [style.background]="'var(--gray-' + i + ')'"></div>
+            }
+        </div>
+    </section>
+</div>
