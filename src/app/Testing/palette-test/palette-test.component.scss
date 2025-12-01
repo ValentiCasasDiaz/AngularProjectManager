@@ -33,6 +33,7 @@
     margin-bottom: 0.5rem;
     color: var(--color-text-inverted);
     font-weight: bold;
+    border: 1px solid black;
 
     &.primary {
         background: var(--color-primary);
@@ -57,16 +58,4 @@
     &.info {
         background: var(--color-info);
     }
-}
-
-.gray-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 8px;
-}
-
-.gray {
-    border: 1px solid black;
-    height: 40px;
-    border-radius: 4px;
 }
