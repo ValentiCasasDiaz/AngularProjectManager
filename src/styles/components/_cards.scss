@@ -1,3 +1,5 @@
+@use 'abstracts' as *;
+
 .card {
     background: var(--color-surface);
     padding: var(--space-md);

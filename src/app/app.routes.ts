@@ -7,6 +7,7 @@ import { DashboardPageComponent } from './pages/dashboard/dashboard-page.compone
 import { AuthGuard, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
 import { AdminGuard } from './guards/admin.guard';
 import { WorkGroupsPageComponent } from './pages/work-groups-page/work-groups-page.component';
+import { PaletteTestComponent } from './Testing/palette-test/palette-test.component';
 const redirectUnauthorized = () => redirectUnauthorizedTo(['/login']);
 const redirectLoggedUser = () => redirectLoggedInTo(['/dashboard']);
 
@@ -17,6 +18,10 @@ export const routes: Routes = [
         component: LoginPageComponent,
         canActivate: [AuthGuard],
         data: { authGuardPipe: redirectLoggedUser }
+    },
+    {
+        path: 'testing-palette', title: 'Palette Testing',
+        component: PaletteTestComponent
     },
     {
         path: 'register', title: 'Register',

@@ -1,27 +1,9 @@
 // Import order recomanat
-@import 'abstracts/variables';
-@import 'abstracts/colors';
-@import 'abstracts/mixins';
-@import 'abstracts/functions';
-
-
-@import 'base/reset';
-@import 'base/globals';
-@import 'base/typography';
-
-
-@import 'layout/grid';
-@import 'layout/spacing';
-
-
-@import 'themes/theme';
-
-
-@import 'components/buttons';
-@import 'components/cards';
-@import 'components/inputs'
-
-
+@use 'abstracts' as *;
+@use 'base' as *;
+@use 'layout' as *;
+@use 'themes' as *;
+@use 'components' as *;
 
 // @use '@angular/material' as mat;
 // @import 'styles/colors';
